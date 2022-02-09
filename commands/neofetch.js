@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { MessageEmbed } from 'discord.js';
 import { stripIndents } from 'common-tags';
-import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
 import chalk from 'chalk';
 import chalkTemplate from 'chalk-template';
 import distroDetails from '../utils/distros.js';
