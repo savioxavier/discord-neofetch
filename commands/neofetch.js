@@ -102,7 +102,7 @@ export async function execute(interaction) {
   // Read file.txt and split on new lines
   const fileContents = fs
     .readFileSync(path.resolve(__dirname, `../assets/${distro}.txt`), 'utf8')
-    .split('\n');
+    .split(/[\r\n]+/);
 
   // Additional whitespace for the ascii arts
   // 'discord' is exempted as the ascii art is already too big
