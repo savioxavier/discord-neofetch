@@ -1,6 +1,6 @@
 import { Client, Collection } from 'discord.js';
 import { config } from 'dotenv';
-import chalk from 'chalk';
+import { Chalk } from 'chalk';
 import fs from 'fs';
 import intentOptions from './config/intentOptions.js';
 import logger from './handlers/logHandler.js';
@@ -10,6 +10,8 @@ config();
 console.clear();
 
 const token = process.env.TOKEN;
+
+const chalk = new Chalk({ level: 2 });
 
 const client = new Client({
   intents: intentOptions,
