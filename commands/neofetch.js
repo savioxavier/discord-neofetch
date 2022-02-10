@@ -12,7 +12,7 @@ import getRandInt from '../helpers/getRandInt.js';
 import getRandom from '../helpers/getRandom.js';
 import { DistroConfig, PromptConfig } from './neoconf.js';
 
-const chalk = Chalk({ level: 2 });
+const chalk = new Chalk({ level: 2 });
 
 export const data = new SlashCommandBuilder()
   .setName('neofetch')
