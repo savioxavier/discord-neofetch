@@ -25,7 +25,7 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
 // otherwise register commands only for the guild
 if (process.env.NODE_ENV === 'production') {
   rest
-    .put(Routes.applicationGuildCommands(CLIENT_ID), {
+    .put(Routes.applicationCommands(CLIENT_ID), {
       body: commands,
     })
     .then(() =>
