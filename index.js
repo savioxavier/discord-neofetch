@@ -30,11 +30,25 @@ for (const file of commandFiles) {
   client.commands.set(command.data.name, command);
 }
 
+// Check if NODE_ENV is 'production' and log messages as appropriate
+function determineStatus() {
+  if (process.env.NODE_ENV === 'production') {
+    return chalk.yellow(
+      'Running in production mode! Commands are registered globally.'
+    );
+  }
+  return chalk.yellow(
+    'Running in development mode! Commands are registered for the guild.'
+  );
+}
+
 // Determine message to be logged
 // once the bot has successfully connected
 // to the Discord API
 client.once('ready', () => {
   client.user.setActivity('/help', { type: 'PLAYING' });
+
+  logger.info(determineStatus());
 
   logger.info(
     `${chalk.greenBright(

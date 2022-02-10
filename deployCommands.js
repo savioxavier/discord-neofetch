@@ -21,7 +21,24 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: '9' }).setToken(TOKEN);
 
-rest
-  .put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: commands })
-  .then(() => logger.info('Successfully registered (/) application commands!'))
-  .catch((err) => logger.error(err));
+// Register commands globally if NODE_ENV is 'production'
+// otherwise register commands only for the guild
+if (process.env.NODE_ENV === 'production') {
+  rest
+    .put(Routes.applicationGuildCommands(CLIENT_ID), {
+      body: commands,
+    })
+    .then(() =>
+      logger.info('Successfully registered (/) application commands!')
+    )
+    .catch((err) => logger.error(err));
+} else {
+  rest
+    .put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+      body: commands,
+    })
+    .then(() =>
+      logger.info('Successfully registered (/) application commands!')
+    )
+    .catch((err) => logger.error(err));
+}
