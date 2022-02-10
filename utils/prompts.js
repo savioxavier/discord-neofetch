@@ -1,4 +1,6 @@
-import chalk from 'chalk';
+import { Chalk } from 'chalk';
+
+const chalk = Chalk({ level: 2 });
 
 const prompts = {
   default: chalk.green(`discord ${chalk.blue('~$')}`),

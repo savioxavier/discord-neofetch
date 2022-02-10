@@ -4,14 +4,15 @@ import { stripIndents } from 'common-tags';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import chalk from 'chalk';
-import chalkTemplate from 'chalk-template';
+import { Chalk } from 'chalk';
 import distroDetails from '../utils/distros.js';
 import prompts from '../utils/prompts.js';
 import embedColors from '../utils/embedColors.js';
 import getRandInt from '../helpers/getRandInt.js';
 import getRandom from '../helpers/getRandom.js';
 import { DistroConfig, PromptConfig } from './neoconf.js';
+
+const chalk = Chalk({ level: 2 });
 
 export const data = new SlashCommandBuilder()
   .setName('neofetch')
@@ -125,20 +126,20 @@ export async function execute(interaction) {
 
   // Replicates terminal colors that you would see
   // at the end of the neofetch command
-  const termColors = chalkTemplate`{blue ███}{green ███}{red ███}{yellow ███}{cyan ███}{magenta ███}{white ███}`;
+  const termColors = `${chalk.blue('███')}${chalk.green('███')}${chalk.red('███')}${chalk.yellow('███')}${chalk.cyan('███')}${chalk.magenta('███')}${chalk.white('███')}`; // prettier-ignore
 
   // Since each ascii art has exactly 12 lines and 21 columns per line,
   // the userDetails object will be formatted to fit the ascii art
   const userDetails = [
-    chalkTemplate`{green ${distroName}}`,
-    chalkTemplate`{red ---------------------}`,
-    chalkTemplate`{${distroColor}.bold Username}: ${details.username}`,
-    chalkTemplate`{${distroColor}.bold ID}: ${details.id}`,
-    chalkTemplate`{${distroColor}.bold Created}: ${details.createdAt}`,
-    chalkTemplate`{${distroColor}.bold Is Bot}: ${details.isBot}`,
-    chalkTemplate`{${distroColor}.bold CPU Usage}: ${cpu}%`,
-    chalkTemplate`{${distroColor}.bold Shell}: ${shell(distroShells)}`,
-    chalkTemplate`{${distroColor}.bold Packages}: ${packages} (${distroPackageManager})`,
+    chalk.green(`${distroName}`),
+    chalk.red('---------------------'),
+    `${chalk[distroColor].bold('Username')}: ${details.username}`,
+    `${chalk[distroColor].bold('ID')}: ${details.id}`,
+    `${chalk[distroColor].bold('Created')}: ${details.createdAt}`,
+    `${chalk[distroColor].bold('Is Bot')}: ${details.isBot}`,
+    `${chalk[distroColor].bold('CPU Usage')}: ${cpu}%`,
+    `${chalk[distroColor].bold('Shell')}: ${shell(distroShells)}`,
+    `${chalk[distroColor].bold('Packages')}: ${packages} (${distroPackageManager})`, // prettier-ignore
     '',
     termColors,
   ];
