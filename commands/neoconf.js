@@ -5,16 +5,6 @@ import logger from '../handlers/logHandler.js';
 
 config();
 
-const { MONGODB_URI } = process.env;
-
-// Connect to MongoDB using the MONGO_URI
-try {
-  await mongoose.connect(MONGODB_URI);
-  logger.info('Connected to MongoDB!');
-} catch (err) {
-  logger.error(err);
-}
-
 // Initialize two Schemas
 // one for distros and one for prompts
 const distroChoiceSchema = new mongoose.Schema({

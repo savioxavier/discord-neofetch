@@ -1,6 +1,7 @@
 import { Client, Collection } from 'discord.js';
 import { config } from 'dotenv';
 import { Chalk } from 'chalk';
+import mongoose from 'mongoose';
 import fs from 'fs';
 import intentOptions from './config/intentOptions.js';
 import logger from './handlers/logHandler.js';
@@ -9,7 +10,7 @@ config();
 
 console.clear();
 
-const token = process.env.TOKEN;
+const { MONGODB_URI, TOKEN } = process.env;
 
 const chalk = new Chalk({ level: 2 });
 
@@ -58,6 +59,14 @@ client.once('ready', () => {
   );
 });
 
+// Connect to MongoDB using the MONGO_URI
+try {
+  await mongoose.connect(MONGODB_URI);
+  logger.info('Connected to MongoDB!');
+} catch (err) {
+  logger.error(err);
+}
+
 // Handle all interactions with the bot
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return;
@@ -78,6 +87,6 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
-client.login(token);
+client.login(TOKEN);
 
 export default client;
