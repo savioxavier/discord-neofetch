@@ -1,18 +1,24 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, MessageActionRow, MessageButton } from 'discord.js';
 import { stripIndents } from 'common-tags';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { promisify } from 'util';
 import path from 'path';
 import { Chalk } from 'chalk';
+import stripAnsi from 'strip-ansi';
 import distroDetails from '../utils/distros.js';
 import prompts from '../utils/prompts.js';
 import embedColors from '../utils/embedColors.js';
+import helpEmbed from '../utils/helpEmbed.js';
 import getRandInt from '../helpers/getRandInt.js';
 import getRandom from '../helpers/getRandom.js';
 import { DistroConfig, PromptConfig } from './neoconf.js';
 
 const chalk = new Chalk({ level: 2 });
+
+// Basically, time.sleep() but in JavaScript.
+const wait = promisify(setTimeout);
 
 export const data = new SlashCommandBuilder()
   .setName('neofetch')
@@ -158,6 +164,21 @@ export async function execute(interaction) {
     ''
   );
 
+  // userDetails object, but for mobile
+  // Does not contain ANSI colors
+  // as they are not visible on mobile
+  const userDetailsMobile = stripIndents`
+    ${distroName}
+    ---------------------
+    >> Username: ${details.username}
+    >> ID: ${details.id}
+    >> Created: ${details.createdAt}
+    >> Is Bot: ${details.isBot}
+    >> CPU Usage: ${cpu}%
+    >> Shell: ${shell(distroShells)}
+    >> Packages: ${packages} (${distroPackageManager})
+  `;
+
   // Main embed that a user sees on desktop
   // Contains ANSI colors
   const neofetchEmbed = new MessageEmbed()
@@ -178,6 +199,151 @@ export async function execute(interaction) {
     })
     .setColor(embedColors[distroColor])
     .setTimestamp();
+
+  // Main embed that a user sees on mobile
+  // Does not contain ANSI colors
+  // as they are not visible on mobile
+  const mobileEmbed = new MessageEmbed()
+    .setTitle(
+      user ? `\`$ neofetch ${user.id} --mobile\`` : '`$ neofetch --mobile`'
+    )
+    .setDescription(
+      stripIndents`
+      \`\`\`ansi
+      ${stripAnsi(currentPrompt)}
+
+      ${userDetailsMobile}
+
+      \`\`\`
+    `
+    )
+    .setColor(embedColors[distroColor])
+    .setTimestamp()
+    .setFooter({
+      text: 'Use /neoconf to configure',
+      iconURL: interaction.client.user.avatarURL(),
+    });
+
+  // Initialize new message button
+  // On clicking this button, the embed will turn to mobile embed
+  const actionRow = new MessageActionRow().addComponents(
+    new MessageButton()
+      .setCustomId('neofetch-mobile')
+      .setLabel('--mobile')
+      .setStyle('SUCCESS')
+      .setEmoji('📱'),
+    new MessageButton()
+      .setCustomId('neofetch-help')
+      .setLabel('--help')
+      .setStyle('PRIMARY')
+      .setEmoji('❓'),
+    new MessageButton()
+      .setCustomId('neofetch-delete')
+      .setLabel(':wq! (Delete)')
+      .setStyle('DANGER')
+      .setEmoji('❌')
+  );
+
+  // Disable action row
+  // Prevents the user from interacting with the message
+  // after the time limit has passed
+  // (controlled by the buttonTimeout variable)
+  const disabledActionRow = new MessageActionRow().addComponents(
+    new MessageButton()
+      .setCustomId('neofetch-mobile')
+      .setLabel('--mobile')
+      .setStyle('SUCCESS')
+      .setEmoji('📱')
+      .setDisabled(true),
+    new MessageButton()
+      .setCustomId('neofetch-help')
+      .setLabel('--help')
+      .setStyle('PRIMARY')
+      .setEmoji('❓')
+      .setDisabled(true),
+    new MessageButton()
+      .setCustomId('neofetch-delete')
+      .setLabel(':wq! (Delete)')
+      .setStyle('DANGER')
+      .setEmoji('❌')
+      .setDisabled(true)
+  );
+
+  // Determines the time (in milliseconds)
+  // after which the buttons will be disabled
+  const millisecondsInASecond = 1000; // Why? Just because. Don't question.
+  const buttonTimeout = 20 * millisecondsInASecond;
+
+  const mobileButtonFilter = (action) =>
+    action.customId === 'neofetch-mobile' &&
+    action.user.id === interaction.user.id;
+
+  const mobileButtonCollector =
+    interaction.channel.createMessageComponentCollector({
+      mobileButtonFilter,
+      time: buttonTimeout,
+    });
+
+  mobileButtonCollector.on('collect', async (action) => {
+    if (action.customId === 'neofetch-mobile') {
+      try {
+        await action.deferUpdate();
+        await wait(500);
+        await action.editReply({
+          content: "Here's your neofetch in mobile mode!",
+          embeds: [mobileEmbed],
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  });
+
+  const helpButtonFilter = (action) =>
+    action.customId === 'neofetch-help' &&
+    action.user.id === interaction.user.id;
+
+  const helpButtonCollector =
+    interaction.channel.createMessageComponentCollector({
+      helpButtonFilter,
+      time: buttonTimeout,
+    });
+
+  helpButtonCollector.on('collect', async (action) => {
+    if (action.customId === 'neofetch-help') {
+      try {
+        await action.deferUpdate();
+        await wait(500);
+        await action.editReply({
+          content: 'Here are some commands you can use with neofetch',
+          embeds: [helpEmbed],
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  });
+
+  const deleteButtonFilter = (action) =>
+    action.customId === 'neofetch-delete' &&
+    action.user.id === interaction.user.id;
+  const deleteButtonCollector =
+    interaction.channel.createMessageComponentCollector({
+      deleteButtonFilter,
+      time: buttonTimeout,
+    });
+
+  deleteButtonCollector.on('collect', async (action) => {
+    if (action.customId === 'neofetch-delete') {
+      try {
+        await action.deferUpdate();
+        await wait(500);
+        await action.deleteReply();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  });
 
   // Random tips that appear on the main neofetch message
   let randomTips = [
@@ -203,7 +369,26 @@ export async function execute(interaction) {
 
   // Finally, reply with the actual neofetch message
   await interaction.reply({
-    content: `Not on PC? Seeing weird text? Try the **\`/neomobile\`** command instead.${randomTip}`,
+    content: `Not on PC? Seeing weird text? Click on the **\`--mobile\`** button below instead.${randomTip}`,
     embeds: [neofetchEmbed],
+    components: [actionRow],
   });
+
+  // Handlers to disable the action row
+  // after the time limit has passed
+  mobileButtonCollector.on('end', () =>
+    interaction.editReply({
+      components: [disabledActionRow],
+    })
+  );
+  helpButtonCollector.on('end', () =>
+    interaction.editReply({
+      components: [disabledActionRow],
+    })
+  );
+  deleteButtonCollector.on('end', () =>
+    interaction.editReply({
+      components: [disabledActionRow],
+    })
+  );
 }
