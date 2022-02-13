@@ -2,6 +2,8 @@
 
 <!-- markdownlint-disable no-inline-html -->
 
+> ### This project is still a work in progress. The bot might be unstable and changes might not have been deployed yet. Use it at your own risk.
+
 > **View your Discord information, neofetch style!**
 
 ## Add to your server
@@ -38,15 +40,17 @@ Unfortunately, mobile support for ANSI codes haven't been added yet, but fear no
 
 Here's a list of the information that is displayed:
 
-> | Name      | Description                                                         |
-> | --------- | ------------------------------------------------------------------- |
-> | Username  | The author/user's tag (eg: Wumpus#0001)                             |
-> | ID        | The author/user's unique Discord ID                                 |
-> | Created   | The date on which the user/author's account was created             |
-> | Is Bot    | Checks if the user/author is a bot                                  |
-> | CPU Usage | CPU Usage count, similar to neofetch                                |
-> | Shell     | Distro specific shell                                               |
-> | Package   | Package count, with the appropriate distro specific package manager |
+> | Name       | Description                                                         |
+> | ---------- | ------------------------------------------------------------------- |
+> | Username   | The author/user's tag (eg: Wumpus#0001)                             |
+> | ID         | The author/user's unique Discord ID                                 |
+> | Created    | The date on which the user/author's account was created             |
+> | Is Bot     | Checks if the user/author is a bot                                  |
+> | CPU Usage* | CPU Usage count, similar to neofetch                                |
+> | Shell*     | Distro specific shell                                               |
+> | Packages*  | Package count, with the appropriate distro specific package manager |
+
+> Fields marked with a `*` are randomized values and do not directly depend on the Discord API
 
 - **What distros are supported?**
 
