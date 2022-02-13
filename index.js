@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import fs from 'fs';
 import intentOptions from './config/intentOptions.js';
 import logger from './handlers/logHandler.js';
+import deploySlashCommands from './deployCommands.js';
 
 config();
 
@@ -17,6 +18,8 @@ const chalk = new Chalk({ level: 2 });
 const client = new Client({
   intents: intentOptions,
 });
+
+deploySlashCommands();
 
 // Read all files under /commands directory
 // and add them to the client's command handler
