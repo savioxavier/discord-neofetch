@@ -29,8 +29,11 @@ if (process.env.NODE_ENV === 'production') {
       body: commands,
     })
     .then(() =>
-      logger.info('Successfully registered application (/) commands in production mode!')
+      logger.info(
+        'Successfully registered application (/) commands in production mode!'
+      )
     )
+    .then(() => process.exit(0))
     .catch((err) => logger.error(err));
 } else {
   rest
@@ -38,7 +41,10 @@ if (process.env.NODE_ENV === 'production') {
       body: commands,
     })
     .then(() =>
-      logger.info('Successfully registered application (/) commands in development mode!')
+      logger.info(
+        'Successfully registered application (/) commands in development mode!'
+      )
     )
+    .then(() => process.exit(0))
     .catch((err) => logger.error(err));
 }
