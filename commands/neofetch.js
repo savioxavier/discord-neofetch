@@ -294,7 +294,7 @@ export async function execute(interaction) {
           embeds: [mobileEmbed],
         });
       } catch (err) {
-        console.log(err);
+        // pass
       }
     }
   });
@@ -319,7 +319,7 @@ export async function execute(interaction) {
           embeds: [helpEmbed],
         });
       } catch (err) {
-        console.log(err);
+        // pass
       }
     }
   });
@@ -337,10 +337,9 @@ export async function execute(interaction) {
     if (action.customId === 'neofetch-delete') {
       try {
         await action.deferUpdate();
-        await wait(500);
         await action.deleteReply();
       } catch (err) {
-        console.log(err);
+        // pass
       }
     }
   });
