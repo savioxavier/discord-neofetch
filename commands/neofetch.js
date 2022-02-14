@@ -195,7 +195,7 @@ export async function execute(interaction) {
     )
     .setFooter({
       text: 'Use /neoconf to configure',
-      iconURL: interaction.client.user.avatarURL(),
+      iconURL: interaction.user.avatarURL(),
     })
     .setColor(embedColors[distroColor])
     .setTimestamp();
@@ -221,7 +221,7 @@ export async function execute(interaction) {
     .setTimestamp()
     .setFooter({
       text: 'Use /neoconf to configure',
-      iconURL: interaction.client.user.avatarURL(),
+      iconURL: interaction.user.avatarURL(),
     });
 
   // Initialize new message button
