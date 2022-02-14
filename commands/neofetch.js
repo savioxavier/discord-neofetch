@@ -375,17 +375,9 @@ export async function execute(interaction) {
 
   // Handlers to disable the action row
   // after the time limit has passed
-  mobileButtonCollector.on('end', () =>
-    interaction.editReply({
-      components: [disabledActionRow],
-    })
-  );
-  helpButtonCollector.on('end', () =>
-    interaction.editReply({
-      components: [disabledActionRow],
-    })
-  );
-  deleteButtonCollector.on('end', () =>
+  const masterCollector = mobileButtonCollector; // Can be any of the button collectors, since they all have the same timeout
+
+  masterCollector.on('end', () =>
     interaction.editReply({
       components: [disabledActionRow],
     })
