@@ -1,12 +1,25 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import ms from 'ms'; // Used to convert milliseconds to readable format
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, MessageActionRow, MessageButton } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
   .setName('info')
   .setDescription('Get information about the bot.');
 
 export async function execute(interaction) {
+  const infoActionRow = new MessageActionRow().addComponents(
+    new MessageButton()
+      .setLabel('View Source Code')
+      .setURL('https://github.com/savioxavier/discord-neofetch')
+      .setStyle('LINK')
+      .setEmoji('📃'),
+    new MessageButton()
+      .setLabel('Donate')
+      .setURL('https://buymeacoffee.com/savioxavier')
+      .setStyle('LINK')
+      .setEmoji('☕')
+  );
+
   const infoEmbed = new MessageEmbed()
     .setColor('#cd7b4a')
     .setAuthor({
@@ -33,5 +46,6 @@ export async function execute(interaction) {
   await interaction.reply({
     content: 'Some information about this cool bot:',
     embeds: [infoEmbed],
+    components: [infoActionRow],
   });
 }
