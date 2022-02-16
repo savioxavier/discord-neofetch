@@ -3,7 +3,6 @@ import { MessageEmbed, MessageActionRow, MessageButton } from 'discord.js';
 import { stripIndents } from 'common-tags';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import { promisify } from 'util';
 import path from 'path';
 import { Chalk } from 'chalk';
 import stripAnsi from 'strip-ansi';
@@ -16,9 +15,6 @@ import getRandom from '../helpers/getRandom.js';
 import { DistroConfig, PromptConfig } from './neoconf.js';
 
 const chalk = new Chalk({ level: 2 });
-
-// Basically, time.sleep() but in JavaScript.
-const wait = promisify(setTimeout);
 
 export const data = new SlashCommandBuilder()
   .setName('neofetch')
@@ -288,7 +284,6 @@ export async function execute(interaction) {
     if (action.customId === 'neofetch-mobile') {
       try {
         await action.deferUpdate();
-        await wait(500);
         await action.editReply({
           content: "Here's your neofetch in mobile mode!",
           embeds: [mobileEmbed],
@@ -313,7 +308,6 @@ export async function execute(interaction) {
     if (action.customId === 'neofetch-help') {
       try {
         await action.deferUpdate();
-        await wait(500);
         await action.editReply({
           content: 'Here are some commands you can use with neofetch',
           embeds: [helpEmbed],
@@ -367,19 +361,23 @@ export async function execute(interaction) {
     randomTipElement !== '' ? `\n**__TIP__**: ${randomTipElement}` : '';
 
   // Finally, reply with the actual neofetch message
-  await interaction.reply({
-    content: `Not on PC? Seeing weird text? Click on the **\`--mobile\`** button below instead.${randomTip}`,
-    embeds: [neofetchEmbed],
-    components: [actionRow],
-  });
+  try {
+    await interaction.reply({
+      content: `Not on PC? Seeing weird text? Click on the **\`--mobile\`** button below instead.${randomTip}`,
+      embeds: [neofetchEmbed],
+      components: [actionRow],
+    });
+  } catch (err) {
+    // pass
+  }
 
   // Handlers to disable the action row
   // after the time limit has passed
   const masterCollector = mobileButtonCollector; // Can be any of the button collectors, since they all have the same timeout
 
-  masterCollector.on('end', () =>
-    interaction.editReply({
+  masterCollector.on('end', async () => {
+    await interaction.editReply({
       components: [disabledActionRow],
-    })
-  );
+    });
+  });
 }

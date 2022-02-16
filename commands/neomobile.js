@@ -164,8 +164,12 @@ export async function execute(interaction) {
     randomTipElement !== '' ? `\n**__TIP__**: ${randomTipElement}` : '';
 
   // Finally, reply with the actual neofetch message
-  await interaction.reply({
-    content: `Here's your neofetch in mobile mode!${randomTip}`,
-    embeds: [mobileEmbed],
-  });
+  try {
+    await interaction.reply({
+      content: `Here's your neofetch in mobile mode!${randomTip}`,
+      embeds: [mobileEmbed],
+    });
+  } catch (err) {
+    // pass
+  }
 }

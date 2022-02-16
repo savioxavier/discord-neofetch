@@ -93,14 +93,16 @@ export async function execute(interaction) {
           `Updated distro choice for user ${interaction.user.id} to ${newDistro}`
         );
 
-        await interaction.reply(
-          `Successfully updated distro choice to ${newDistro}!`
-        );
+        await interaction.reply({
+          content: `Successfully updated distro choice to \`${newDistro}\`!`,
+          ephemeral: true,
+        });
       } catch (err) {
         logger.error(err);
-        await interaction.reply(
-          'Something went wrong trying to update your distro choice.'
-        );
+        await interaction.reply({
+          content: 'Something went wrong trying to update your distro choice.',
+          ephemeral: true,
+        });
       }
     }
 
@@ -113,14 +115,16 @@ export async function execute(interaction) {
           `Created new distro choice for user ${interaction.user.id} to ${newDistro}`
         );
 
-        await interaction.reply(
-          `Successfully set distro choice to ${newDistro}!`
-        );
+        await interaction.reply({
+          content: `Successfully set distro choice to \`${newDistro}\`!`,
+          ephemeral: true,
+        });
       } catch (err) {
         logger.error(err);
-        await interaction.reply(
-          'Something went wrong trying to create your distro choice.'
-        );
+        await interaction.reply({
+          content: 'Something went wrong trying to create your distro choice.',
+          ephemeral: true,
+        });
       }
     }
   } else if (interaction.options.getSubcommand() === 'prompt') {
@@ -147,14 +151,16 @@ export async function execute(interaction) {
           `Updated prompt choice for user ${interaction.user.id} to ${newPrompt}`
         );
 
-        await interaction.reply(
-          `Successfully updated prompt choice to ${newPrompt}!`
-        );
+        await interaction.reply({
+          content: `Successfully updated prompt choice to \`${newPrompt}\`!`,
+          ephemeral: true,
+        });
       } catch (err) {
         logger.error(err);
-        await interaction.reply(
-          'Something went wrong trying to update your prompt choice.'
-        );
+        await interaction.reply({
+          content: 'Something went wrong trying to update your prompt choice.',
+          ephemeral: true,
+        });
       }
     }
 
@@ -167,14 +173,16 @@ export async function execute(interaction) {
           `Created new prompt choice for user ${interaction.user.id} to ${newPrompt}`
         );
 
-        await interaction.reply(
-          `Successfully set prompt choice to ${newPrompt}!`
-        );
+        await interaction.reply({
+          content: `Successfully set prompt choice to \`${newPrompt}\`!`,
+          ephemeral: true,
+        });
       } catch (err) {
         logger.error(err);
-        await interaction.reply(
-          'Something went wrong trying to create your prompt choice.'
-        );
+        await interaction.reply({
+          content: 'Something went wrong trying to create your prompt choice.',
+          ephemeral: true,
+        });
       }
     }
   }
