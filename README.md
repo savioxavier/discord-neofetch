@@ -2,8 +2,6 @@
 
 <!-- markdownlint-disable no-inline-html -->
 
-> ### This project is still a work in progress. The bot might be unstable and changes might not have been deployed yet. Use it at your own risk.
-
 > **View your Discord information, neofetch style!**
 
 ## Add to your server
@@ -15,8 +13,6 @@
 ### Here's a demo of the bot
 
 ![Demo](neofetch_showcase.gif)
-
-**Note: The above demo utilises buttons, which the curent version of the bot doesn't have, and is still under development. Please check out the Issues or Pull Request tab if you'd like to contribute.**
 
 ## FAQs
 
@@ -34,7 +30,7 @@ Also you get to show off your favorite distro (looking at you arch btw users).
 
 Alright, so Discord recently added ANSI escape codes to codeblock messages, which means that you can 'colorize' your output an style it whichever way you want. This bot takes advantage of this feature, and works around with the color codes using `chalk` to produce a neofetch-like colored output.
 
-Unfortunately, mobile support for ANSI codes haven't been added yet, but fear not! There's a command called `/neomobile` that outputs a mobile friendly view of the information.
+Unfortunately, mobile support for ANSI codes haven't been added yet, but fear not! There's a button called `--mobile` that outputs a mobile friendly view of the information. Alternatively, you can use the `/neomobile` command too!
 
 - **What sort of information is displayed?**
 
@@ -49,7 +45,7 @@ Here's a list of the information that is displayed:
 > | CPU Usage* | CPU Usage count, similar to neofetch                                |
 > | Shell*     | Distro specific shell                                               |
 > | Packages*  | Package count, with the appropriate distro specific package manager |
-
+>
 > Fields marked with a `*` are randomized values and do not directly depend on the Discord API
 
 - **What distros are supported?**
@@ -95,15 +91,15 @@ All the above prompts have been ported from [ohmyzsh/ohmyzsh](https://github.com
 
 Here's a list of commands that are available:
 
-> | Command           | Description|
-> | ----------------- | -------------------------
-> | `/neofetch`       | The main neofetch command.<br>Used to display the neofetch-ed information of the author<br>or the user mentioned, in accordance with their set distro and prompt.<br>Also displays a set of neofetch-like, non-Discord related info,<br>such as the number of packages, shell, etc. |
+> | Command            | Description|
+> | ------------------ | ---------- |
+> | `/neofetch`        | The main neofetch command.<br>Used to display the neofetch-ed information of the author<br>or the user mentioned, in accordance with their set distro and prompt.<br>Also displays a set of neofetch-like, non-Discord related info,<br>such as the number of packages, shell, etc. |
 > | `/neomobile`       | A mobile version of the neofetch command. |
-> | `/neoconf distro` | Customize your distro from a list of options.                                                                                                                                                                                                                                       |
-> | `/neoconf prompt` | Customize your prompt from a list of options.                                                                                                                                                                                                                                       |
-> | `/info`           | Display relevant information about the bot.                                                                                                                                                                                                                                         |
-> | `/help`           | View a list of bot commands.                                                                                                                                                                                                                                                        |
-> | `/invite`         | Display an invite link to add your bot to your server.                                                                                                                                                                                                                              |     |
+> | `/neoconf distro`  | Customize your distro from a list of options. |
+> | `/neoconf prompt`  | Customize your prompt from a list of options. |
+> | `/info`            | Display relevant information about the bot. |
+> | `/help`            | View a list of bot commands. |
+> | `/invite`          | Display an invite link to add your bot to your server. |
 
 - **Are there slash commands?**
 
