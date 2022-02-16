@@ -138,7 +138,7 @@ export async function execute(interaction) {
     .setTimestamp()
     .setFooter({
       text: 'Use /neoconf to configure',
-      iconURL: interaction.client.user.avatarURL(),
+      iconURL: interaction.user.avatarURL(),
     });
 
   // Random tips that appear on the main neofetch message
@@ -164,8 +164,12 @@ export async function execute(interaction) {
     randomTipElement !== '' ? `\n**__TIP__**: ${randomTipElement}` : '';
 
   // Finally, reply with the actual neofetch message
-  await interaction.reply({
-    content: `Not on PC? Seeing weird text? Try the **\`/neomobile\`** command instead.${randomTip}`,
-    embeds: [mobileEmbed],
-  });
+  try {
+    await interaction.reply({
+      content: `Here's your neofetch in mobile mode!${randomTip}`,
+      embeds: [mobileEmbed],
+    });
+  } catch (err) {
+    // pass
+  }
 }
