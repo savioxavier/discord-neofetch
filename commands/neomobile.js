@@ -8,6 +8,7 @@ import embedColors from '../utils/embedColors.js';
 import getRandInt from '../helpers/getRandInt.js';
 import getRandom from '../helpers/getRandom.js';
 import { DistroConfig, PromptConfig } from './neoconf.js';
+import logger from '../handlers/logHandler.js';
 
 export const data = new SlashCommandBuilder()
   .setName('neomobile')
@@ -170,6 +171,10 @@ export async function execute(interaction) {
       embeds: [mobileEmbed],
     });
   } catch (err) {
-    // pass
+    logger.error(err);
+    await interaction.reply({
+      content: 'Something went wrong. Please try the command again.',
+      ephemeral: true,
+    });
   }
 }

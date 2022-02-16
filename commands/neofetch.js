@@ -13,6 +13,7 @@ import helpEmbed from '../utils/helpEmbed.js';
 import getRandInt from '../helpers/getRandInt.js';
 import getRandom from '../helpers/getRandom.js';
 import { DistroConfig, PromptConfig } from './neoconf.js';
+import logger from '../handlers/logHandler.js';
 
 const chalk = new Chalk({ level: 2 });
 
@@ -368,7 +369,11 @@ export async function execute(interaction) {
       components: [actionRow],
     });
   } catch (err) {
-    // pass
+    logger.error(err);
+    await interaction.reply({
+      content: 'Something went wrong. Please try the command again.',
+      ephemeral: true,
+    });
   }
 
   // Handlers to disable the action row
