@@ -2,6 +2,9 @@
 
 <!-- markdownlint-disable no-inline-html -->
 
+> ### ⚠️ This project is still a work in progress. The bot might be unstable and changes might not have been deployed yet. Use it at your own risk.
+> ##### The bot is currently offline and will be up and running once it has been migrated to v14 of discord.js and all the errors have been fixed. See [#4](https://github.com/savioxavier/discord-neofetch/issues/4) for more details.
+
 > **View your Discord information, neofetch style!**
 
 ## Add to your server
