@@ -1,8 +1,10 @@
 import { Client, Collection } from 'discord.js';
 import { config } from 'dotenv';
 import { Chalk } from 'chalk';
+import { stripIndents } from 'common-tags';
 import mongoose from 'mongoose';
 import fs from 'fs';
+import boxen from 'boxen';
 import intentOptions from './config/intentOptions.js';
 import logger from './handlers/logHandler.js';
 
@@ -35,11 +37,15 @@ for (const file of commandFiles) {
 function determineStatus() {
   if (process.env.NODE_ENV === 'production') {
     return chalk.yellow(
-      'Running in production mode! Commands are registered globally.'
+      `${chalk.bgCyan.black(
+        ' PROD '
+      )} Running in production mode! Commands are registered globally.`
     );
   }
   return chalk.yellow(
-    'Running in development mode! Commands are registered for the guild.'
+    `${chalk.bgYellow.black(
+      ' DEV '
+    )} Running in development mode! Commands are registered for the guild.`
   );
 }
 
@@ -49,13 +55,35 @@ function determineStatus() {
 client.once('ready', () => {
   client.user.setActivity('/help', { type: 'PLAYING' });
 
+  const commandsList = fs
+    .readdirSync('./commands')
+    .filter((file) => file.endsWith('.js'))
+    .map((file) => file.replace('.js', ''))
+    .map((file) => chalk.cyan(`/${file}`))
+    .join(', ');
+
+  const commandsCount = fs
+    .readdirSync('./commands')
+    .filter((file) => file.endsWith('.js')).length;
+
   logger.info(determineStatus());
 
   logger.info(
-    `${chalk.greenBright(
-      `${chalk.blue('All set!')} Logged in as ${client.user.tag}!`
-    )}
-    `
+    boxen(
+      stripIndents`${chalk.greenBright(
+        `${chalk.blue('All set!')} Logged in as ${client.user.tag}!`
+      )}
+
+        ${chalk.yellow(`${commandsCount} commands loaded:`)}
+        ${commandsList}
+        `,
+      {
+        padding: 1,
+        margin: 1,
+        borderColor: 'green',
+        borderStyle: 'round',
+      }
+    )
   );
 });
 

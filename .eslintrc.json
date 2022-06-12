@@ -20,6 +20,7 @@
     "operator-linebreak": 0,
     "max-len": 0,
     "object-curly-newline": 0,
+    "indent": 0,
     "no-plusplus": 0,
     "no-shadow": 0,
     "import/extensions": 0,
