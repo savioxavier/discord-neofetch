@@ -21,32 +21,32 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: '9' }).setToken(TOKEN);
 
-function deploySlashCommands() {
+async function deploySlashCommands() {
   // Register commands globally if NODE_ENV is 'production'
   // otherwise register commands only for the guild
   if (process.env.NODE_ENV === 'production') {
-    rest
-      .put(Routes.applicationCommands(CLIENT_ID), {
+    try {
+      await rest.put(Routes.applicationCommands(CLIENT_ID), {
         body: commands,
-      })
-      .then(() =>
-        logger.info(
-          'Successfully registered application (/) commands in production mode!'
-        )
-      )
-      .catch((err) => logger.error(err));
+      });
+      logger.info(
+        'Successfully registered application (/) commands in production mode!'
+      );
+    } catch (err) {
+      logger.error(err);
+    }
   } else {
-    rest
-      .put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+    try {
+      await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
         body: commands,
-      })
-      .then(() =>
-        logger.info(
-          'Successfully registered application (/) commands in development mode!'
-        )
-      )
-      .catch((err) => logger.error(err));
+      });
+      logger.info(
+        'Successfully registered application (/) commands in development mode!'
+      );
+    } catch (err) {
+      logger.error(err);
+    }
   }
 }
 
-export default deploySlashCommands;
+deploySlashCommands();
