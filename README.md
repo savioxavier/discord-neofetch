@@ -1,10 +1,11 @@
 # discord-neofetch
 
-<!-- markdownlint-disable no-inline-html -->
+<!-- markdownlint-disable no-inline-html header-increment no-trailing-punctuation -->
 
 > ### ⚠️ This project is still a work in progress. The bot might be unstable and changes might not have been deployed yet. Use it at your own risk.
+>
 > ##### The bot is currently offline and will be up and running once it has been migrated to v14 of discord.js and all the errors have been fixed. See [#4](https://github.com/savioxavier/discord-neofetch/issues/4) for more details.
-
+>
 > **View your Discord information, neofetch style!**
 
 ## Add to your server
@@ -39,15 +40,15 @@ Unfortunately, mobile support for ANSI codes haven't been added yet, but fear no
 
 Here's a list of the information that is displayed:
 
-> | Name       | Description                                                         |
-> | ---------- | ------------------------------------------------------------------- |
-> | Username   | The author/user's tag (eg: Wumpus#0001)                             |
-> | ID         | The author/user's unique Discord ID                                 |
-> | Created    | The date on which the user/author's account was created             |
-> | Is Bot     | Checks if the user/author is a bot                                  |
-> | CPU Usage* | CPU Usage count, similar to neofetch                                |
-> | Shell*     | Distro specific shell                                               |
-> | Packages*  | Package count, with the appropriate distro specific package manager |
+> | Name        | Description                                                         |
+> | ----------- | ------------------------------------------------------------------- |
+> | Username    | The author/user's tag (eg: Wumpus#0001)                             |
+> | ID          | The author/user's unique Discord ID                                 |
+> | Created     | The date on which the user/author's account was created             |
+> | Is Bot      | Checks if the user/author is a bot                                  |
+> | CPU Usage\* | CPU Usage count, similar to neofetch                                |
+> | Shell\*     | Distro specific shell                                               |
+> | Packages\*  | Package count, with the appropriate distro specific package manager |
 >
 > Fields marked with a `*` are randomized values and do not directly depend on the Discord API
 
@@ -62,7 +63,7 @@ Here's a list of distros that this bot supports. Choose any one you'd like:
 > | Fedora            | `fedora`     |
 > | Manjaro           | `manjaro`    |
 > | Mint              | `mint`       |
-> | Pop!_OS           | `popos`      |
+> | Pop!\_OS          | `popos`      |
 > | Ubuntu            | `ubuntu`     |
 > | Android           | `android`    |
 > | CentOS            | `centos`     |
