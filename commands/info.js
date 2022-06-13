@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import ms from 'ms'; // Used to convert milliseconds to readable format
-import { MessageEmbed, MessageActionRow, MessageButton } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
   .setName('info')

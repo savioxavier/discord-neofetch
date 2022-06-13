@@ -1,5 +1,5 @@
-import { MessageEmbed } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { MessageEmbed } from 'discord.js';
 
 const helpEmbed = new MessageEmbed()
   .setColor('#cd7b4a')

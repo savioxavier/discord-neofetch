@@ -1,14 +1,14 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
 import { stripIndents } from 'common-tags';
+import { MessageEmbed } from 'discord.js';
 import stripAnsi from 'strip-ansi';
-import distroDetails from '../utils/distros.js';
-import prompts from '../utils/prompts.js';
-import embedColors from '../utils/embedColors.js';
+import logger from '../handlers/logHandler.js';
 import getRandInt from '../helpers/getRandInt.js';
 import getRandom from '../helpers/getRandom.js';
+import distroDetails from '../utils/distros.js';
+import embedColors from '../utils/embedColors.js';
+import prompts from '../utils/prompts.js';
 import { DistroConfig, PromptConfig } from './neoconf.js';
-import logger from '../handlers/logHandler.js';
 
 export const data = new SlashCommandBuilder()
   .setName('neomobile')

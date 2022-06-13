@@ -1,19 +1,19 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed, MessageActionRow, MessageButton } from 'discord.js';
-import { stripIndents } from 'common-tags';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import path from 'path';
 import { Chalk } from 'chalk';
+import { stripIndents } from 'common-tags';
+import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import fs from 'fs';
+import path from 'path';
 import stripAnsi from 'strip-ansi';
-import distroDetails from '../utils/distros.js';
-import prompts from '../utils/prompts.js';
-import embedColors from '../utils/embedColors.js';
-import helpEmbed from '../utils/helpEmbed.js';
+import { fileURLToPath } from 'url';
+import logger from '../handlers/logHandler.js';
 import getRandInt from '../helpers/getRandInt.js';
 import getRandom from '../helpers/getRandom.js';
+import distroDetails from '../utils/distros.js';
+import embedColors from '../utils/embedColors.js';
+import helpEmbed from '../utils/helpEmbed.js';
+import prompts from '../utils/prompts.js';
 import { DistroConfig, PromptConfig } from './neoconf.js';
-import logger from '../handlers/logHandler.js';
 
 const chalk = new Chalk({ level: 2 });
 

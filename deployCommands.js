@@ -1,7 +1,7 @@
-import fs from 'fs';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import dotenv from 'dotenv';
+import fs from 'fs';
 import logger from './handlers/logHandler.js';
 
 dotenv.config();

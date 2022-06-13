@@ -1,10 +1,10 @@
-import { Client, Collection } from 'discord.js';
-import { config } from 'dotenv';
+import boxen from 'boxen';
 import { Chalk } from 'chalk';
 import { stripIndents } from 'common-tags';
-import mongoose from 'mongoose';
+import { Client, Collection } from 'discord.js';
+import { config } from 'dotenv';
 import fs from 'fs';
-import boxen from 'boxen';
+import mongoose from 'mongoose';
 import intentOptions from './config/intentOptions.js';
 import logger from './handlers/logHandler.js';
 

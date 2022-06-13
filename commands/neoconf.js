@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import mongoose from 'mongoose';
 import { config } from 'dotenv';
+import mongoose from 'mongoose';
 import logger from '../handlers/logHandler.js';
 
 config();
