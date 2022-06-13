@@ -115,8 +115,20 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
-process.on('unhandledRejection', (error) => {
-  console.error('Unhandled promise rejection:', error);
+// Due to reasons I couldn't understand,
+// the bot would crash randomly when a user
+// tried to interact with buttons
+// I wasn't able to fix it, so I decided to do this
+// The below "fix" is a temperory workaround,
+// designed to prevent that from happening
+process.on('unhandledRejection', (err) => {
+  if (err.name === 'DiscordAPIError') {
+    logger.error(
+      '[temp err]: an unknown message error occured, ignore for now'
+    );
+  } else {
+    logger.error(err);
+  }
 });
 
 client.login(TOKEN);
