@@ -97,8 +97,8 @@ export async function execute(interaction) {
           content: `Successfully updated distro choice to \`${newDistro}\`!`,
           ephemeral: true,
         });
-      } catch (err) {
-        logger.error(err);
+      } catch (error) {
+        logger.error(error);
         await interaction.reply({
           content: 'Something went wrong trying to update your distro choice.',
           ephemeral: true,
@@ -119,8 +119,8 @@ export async function execute(interaction) {
           content: `Successfully set distro choice to \`${newDistro}\`!`,
           ephemeral: true,
         });
-      } catch (err) {
-        logger.error(err);
+      } catch (error) {
+        logger.error(error);
         await interaction.reply({
           content: 'Something went wrong trying to create your distro choice.',
           ephemeral: true,
@@ -155,8 +155,8 @@ export async function execute(interaction) {
           content: `Successfully updated prompt choice to \`${newPrompt}\`!`,
           ephemeral: true,
         });
-      } catch (err) {
-        logger.error(err);
+      } catch (error) {
+        logger.error(error);
         await interaction.reply({
           content: 'Something went wrong trying to update your prompt choice.',
           ephemeral: true,
@@ -177,8 +177,8 @@ export async function execute(interaction) {
           content: `Successfully set prompt choice to \`${newPrompt}\`!`,
           ephemeral: true,
         });
-      } catch (err) {
-        logger.error(err);
+      } catch (error) {
+        logger.error(error);
         await interaction.reply({
           content: 'Something went wrong trying to create your prompt choice.',
           ephemeral: true,

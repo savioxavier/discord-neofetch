@@ -3,7 +3,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["airbnb-base"],
+  "extends": ["airbnb-base", "plugin:unicorn/recommended"],
   "parserOptions": {
     "ecmaVersion": 13,
     "sourceType": "module"
@@ -24,6 +24,8 @@
     "no-plusplus": 0,
     "no-shadow": 0,
     "import/extensions": 0,
-    "import/no-unresolved": 0
+    "import/no-unresolved": 0,
+    "unicorn/import-style": 0,
+    "unicorn/filename-case": 0
   }
 }

@@ -84,7 +84,7 @@ const distroDetails = {
     color: 'black',
   },
   windows: {
-    packageManager: getRandom(['choco', 'scoop']),
+    packageManager: getRandom(['choco', 'scoop', 'winget']),
     os: 'Windows',
     shells: windowsShells,
     color: 'blue',

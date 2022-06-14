@@ -1,7 +1,7 @@
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
 import dotenv from 'dotenv';
-import fs from 'fs';
+import fs from 'node:fs';
 import logger from './handlers/logHandler.js';
 
 dotenv.config();
@@ -22,9 +22,11 @@ for (const file of commandFiles) {
 const rest = new REST({ version: '9' }).setToken(TOKEN);
 
 async function deploySlashCommands() {
+  const { NODE_ENV } = process.env;
+
   // Register commands globally if NODE_ENV is 'production'
   // otherwise register commands only for the guild
-  if (process.env.NODE_ENV === 'production') {
+  if (NODE_ENV === 'production') {
     try {
       await rest.put(Routes.applicationCommands(CLIENT_ID), {
         body: commands,
@@ -32,8 +34,8 @@ async function deploySlashCommands() {
       logger.info(
         'Successfully registered application (/) commands in production mode!'
       );
-    } catch (err) {
-      logger.error(err);
+    } catch (error) {
+      logger.error(error);
     }
   } else {
     try {
@@ -43,8 +45,8 @@ async function deploySlashCommands() {
       logger.info(
         'Successfully registered application (/) commands in development mode!'
       );
-    } catch (err) {
-      logger.error(err);
+    } catch (error) {
+      logger.error(error);
     }
   }
 }
