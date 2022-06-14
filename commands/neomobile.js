@@ -20,10 +20,10 @@ export const data = new SlashCommandBuilder()
       .setDescription('The user to get the information of')
   );
 
+const shell = (shellName) => getRandom(shellName);
+
 export async function execute(interaction) {
   const user = interaction.options.getUser('target');
-
-  const shell = (shellName) => getRandom(shellName);
 
   const packages = getRandInt(75, 800);
   const cpu = getRandInt(25, 98);
@@ -38,22 +38,14 @@ export async function execute(interaction) {
       userId: user.id,
     });
 
-    if (distroConfig) {
-      distro = distroConfig.distroChoice;
-    } else {
-      distro = 'discord';
-    }
+    distro = distroConfig ? distroConfig.distroChoice : 'discord';
 
     // Get prompt choice of the mentioned user from database. If it isn't available, set prompt to 'default'
     const promptConfig = await PromptConfig.findOne({
       userId: user.id,
     });
 
-    if (promptConfig) {
-      prompt = promptConfig.promptChoice;
-    } else {
-      prompt = 'default';
-    }
+    prompt = promptConfig ? promptConfig.promptChoice : 'default';
 
     // Default details object, if user is specified
     details = {
@@ -68,22 +60,14 @@ export async function execute(interaction) {
       userId: interaction.user.id,
     });
 
-    if (distroConfig) {
-      distro = distroConfig.distroChoice;
-    } else {
-      distro = 'discord';
-    }
+    distro = distroConfig ? distroConfig.distroChoice : 'discord';
 
     // Get prompt choice of the current user from database. If it isn't available, set prompt to 'default'
     const promptConfig = await PromptConfig.findOne({
       userId: interaction.user.id,
     });
 
-    if (promptConfig) {
-      prompt = promptConfig.promptChoice;
-    } else {
-      prompt = 'default';
-    }
+    prompt = promptConfig ? promptConfig.promptChoice : 'default';
 
     // Default details object for the author, if user is not specified.
     details = {
@@ -154,7 +138,7 @@ export async function execute(interaction) {
   // Append four empty strings elements to randomTips
   // This is ensure that the randomTips array
   // will not return tips every time
-  randomTips = randomTips.concat(Array(4).fill(''));
+  randomTips = [...randomTips, Array.from({ length: 4 }).fill('')];
   const randomTipElement =
     randomTips[Math.floor(Math.random() * randomTips.length)];
 
@@ -170,8 +154,8 @@ export async function execute(interaction) {
       content: `Here's your neofetch in mobile mode!${randomTip}`,
       embeds: [mobileEmbed],
     });
-  } catch (err) {
-    logger.error(err);
+  } catch (error) {
+    logger.error(error);
     await interaction.reply({
       content: 'Something went wrong. Please try the command again.',
       ephemeral: true,

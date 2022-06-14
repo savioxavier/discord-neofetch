@@ -3,7 +3,7 @@ import { Chalk } from 'chalk';
 import { stripIndents } from 'common-tags';
 import { Client, Collection } from 'discord.js';
 import { config } from 'dotenv';
-import fs from 'fs';
+import fs from 'node:fs';
 import mongoose from 'mongoose';
 import intentOptions from './config/intentOptions.js';
 import logger from './handlers/logHandler.js';
@@ -12,7 +12,7 @@ config();
 
 console.clear();
 
-const { MONGODB_URI, TOKEN } = process.env;
+const { MONGODB_URI, TOKEN, NODE_ENV } = process.env;
 
 const chalk = new Chalk({ level: 2 });
 
@@ -35,7 +35,7 @@ for (const file of commandFiles) {
 
 // Check if NODE_ENV is 'production' and log messages as appropriate
 function determineStatus() {
-  if (process.env.NODE_ENV === 'production') {
+  if (NODE_ENV === 'production') {
     return chalk.yellow(
       `${chalk.bgCyan.black(
         ' PROD '
@@ -91,8 +91,8 @@ client.once('ready', () => {
 try {
   await mongoose.connect(MONGODB_URI);
   logger.info('Connected to MongoDB!');
-} catch (err) {
-  logger.error(err);
+} catch (error) {
+  logger.error(error);
 }
 
 // Handle all interactions with the bot
@@ -121,13 +121,13 @@ client.on('interactionCreate', async (interaction) => {
 // I wasn't able to fix it, so I decided to do this
 // The below "fix" is a temperory workaround,
 // designed to prevent that from happening
-process.on('unhandledRejection', (err) => {
-  if (err.name === 'DiscordAPIError') {
+process.on('unhandledRejection', (error) => {
+  if (error.name === 'DiscordAPIError') {
     logger.error(
       '[temp err]: an unknown message error occured, ignore for now'
     );
   } else {
-    logger.error(err);
+    logger.error(error);
   }
 });
 
