@@ -2,15 +2,13 @@
 
 <!-- markdownlint-disable no-inline-html header-increment no-trailing-punctuation -->
 
-> ### ⚠️ This project is still a work in progress. The bot might be unstable and changes might not have been deployed yet. Use it at your own risk.
->
-> ##### The bot is currently offline and will be up and running once it has been migrated to v14 of discord.js and all the errors have been fixed. See [#4](https://github.com/savioxavier/discord-neofetch/issues/4) for more details.
->
 > **View your Discord information, neofetch style!**
 
 ## Add to your server
 
 [![Add Neofetch Bot](https://img.shields.io/badge/-Add%20Neofetch%20Bot-141B2E?style=for-the-badge&logo=discord)](https://discord.com/api/oauth2/authorize?client_id=938858179993952297&permissions=535260818496&scope=bot%20applications.commands)
+
+Please note that this bot _might_ be unstable at times. If you do find any problems, feel free to open a new issue
 
 ## Demo
 
