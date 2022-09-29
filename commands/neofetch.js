@@ -268,8 +268,7 @@ export async function execute(interaction) {
   mobileButtonCollector.on('collect', async (action) => {
     if (action.customId === 'neofetch-mobile') {
       try {
-        await action.deferUpdate();
-        await action.editReply({
+        await action.update({
           content: "Here's your neofetch in mobile mode!",
           embeds: [mobileEmbed],
         });
@@ -292,8 +291,7 @@ export async function execute(interaction) {
   helpButtonCollector.on('collect', async (action) => {
     if (action.customId === 'neofetch-help') {
       try {
-        await action.deferUpdate();
-        await action.editReply({
+        await action.update({
           content: 'Here are some commands you can use with neofetch',
           embeds: [helpEmbed],
         });
